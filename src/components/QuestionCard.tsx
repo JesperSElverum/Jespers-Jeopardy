@@ -2,10 +2,44 @@ import { useState } from "react";
 import { useGame } from "../context/GameContext";
 import { motion, AnimatePresence } from "framer-motion";
 
+const revealAnimations = [
+  // 1. Flip in from top
+  {
+    initial: { opacity: 0, rotateX: -90, height: 0 },
+    animate: { opacity: 1, rotateX: 0, height: "auto" },
+    transition: { type: "spring" as const, damping: 12, stiffness: 100 },
+  },
+  // 2. Zoom in with bounce
+  {
+    initial: { opacity: 0, scale: 0, height: 0 },
+    animate: { opacity: 1, scale: 1, height: "auto" },
+    transition: { type: "spring" as const, damping: 8, stiffness: 150 },
+  },
+  // 3. Slide up from below
+  {
+    initial: { opacity: 0, y: 80, height: 0 },
+    animate: { opacity: 1, y: 0, height: "auto" },
+    transition: { type: "spring" as const, damping: 14, stiffness: 120 },
+  },
+  // 4. Rotate in from the side
+  {
+    initial: { opacity: 0, rotateY: 180, height: 0 },
+    animate: { opacity: 1, rotateY: 0, height: "auto" },
+    transition: { type: "spring" as const, damping: 15, stiffness: 100 },
+  },
+  // 5. Expand from center with blur
+  {
+    initial: { opacity: 0, scale: 0.3, filter: "blur(10px)", height: 0 },
+    animate: { opacity: 1, scale: 1, filter: "blur(0px)", height: "auto" },
+    transition: { type: "spring" as const, damping: 12, stiffness: 80 },
+  },
+];
+
 export default function QuestionCard() {
   const { gameData, activeQuestionId, setActiveQuestion, revealQuestion } =
     useGame();
   const [showAnswer, setShowAnswer] = useState(false);
+  const [revealAnim, setRevealAnim] = useState(revealAnimations[0]);
 
   // Find the active question
   let activeQuestion = null;
@@ -53,7 +87,7 @@ export default function QuestionCard() {
             style={{ perspective: "1000px" }}
           >
             {/* Points badge */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 glass-gold rounded-full px-6 py-2 text-base font-bold">
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 glass-gold rounded-full px-8 py-3 text-xl font-bold whitespace-nowrap">
               {activeQuestion.points} poeng
             </div>
 
@@ -71,10 +105,10 @@ export default function QuestionCard() {
             <AnimatePresence>
               {showAnswer && (
                 <motion.div
-                  initial={{ opacity: 0, rotateX: -90, height: 0 }}
-                  animate={{ opacity: 1, rotateX: 0, height: "auto" }}
+                  initial={revealAnim.initial}
+                  animate={revealAnim.animate}
                   exit={{ opacity: 0 }}
-                  transition={{ type: "spring", damping: 15 }}
+                  transition={revealAnim.transition}
                   className="mb-8"
                 >
                   <div className="glass-gold rounded-2xl p-6">
@@ -103,7 +137,14 @@ export default function QuestionCard() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setShowAnswer(true)}
+                  onClick={() => {
+                    setRevealAnim(
+                      revealAnimations[
+                        Math.floor(Math.random() * revealAnimations.length)
+                      ],
+                    );
+                    setShowAnswer(true);
+                  }}
                   className="glass-blue px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-blue transition-shadow"
                 >
                   Vis Svar

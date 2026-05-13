@@ -13,23 +13,38 @@ export default function GamePage() {
 
   useEffect(() => {
     if (isGameComplete) {
-      // Fire confetti celebration!
-      const duration = 3000;
+      // Create a canvas above all overlays
+      const canvas = document.createElement("canvas");
+      canvas.style.cssText =
+        "position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;pointer-events:none;";
+      document.body.appendChild(canvas);
+      const fire = confetti.create(canvas, { resize: true });
+
+      // Big initial burst from center
+      fire({
+        particleCount: 150,
+        spread: 100,
+        origin: { x: 0.5, y: 0.4 },
+        colors: ["#BA0C2F", "#00205B", "#FFFFFF", "#D4AF37"],
+      });
+
+      // Continuous celebration from both sides
+      const duration = 5000;
       const end = Date.now() + duration;
 
       const frame = () => {
-        confetti({
-          particleCount: 3,
+        fire({
+          particleCount: 8,
           angle: 60,
-          spread: 55,
-          origin: { x: 0 },
+          spread: 70,
+          origin: { x: 0, y: 0.6 },
           colors: ["#BA0C2F", "#00205B", "#FFFFFF", "#D4AF37"],
         });
-        confetti({
-          particleCount: 3,
+        fire({
+          particleCount: 8,
           angle: 120,
-          spread: 55,
-          origin: { x: 1 },
+          spread: 70,
+          origin: { x: 1, y: 0.6 },
           colors: ["#BA0C2F", "#00205B", "#FFFFFF", "#D4AF37"],
         });
 
@@ -38,6 +53,42 @@ export default function GamePage() {
         }
       };
       frame();
+
+      // Extra bursts at intervals
+      setTimeout(
+        () =>
+          fire({
+            particleCount: 100,
+            spread: 120,
+            origin: { x: 0.3, y: 0.3 },
+            colors: ["#BA0C2F", "#D4AF37", "#FFFFFF"],
+          }),
+        800,
+      );
+      setTimeout(
+        () =>
+          fire({
+            particleCount: 100,
+            spread: 120,
+            origin: { x: 0.7, y: 0.3 },
+            colors: ["#00205B", "#D4AF37", "#FFFFFF"],
+          }),
+        1600,
+      );
+      setTimeout(
+        () =>
+          fire({
+            particleCount: 200,
+            spread: 160,
+            startVelocity: 45,
+            origin: { x: 0.5, y: 0.5 },
+            colors: ["#BA0C2F", "#00205B", "#FFFFFF", "#D4AF37"],
+          }),
+        2500,
+      );
+
+      // Clean up canvas after celebration
+      setTimeout(() => document.body.removeChild(canvas), 6000);
     }
   }, [isGameComplete]);
 
@@ -56,7 +107,11 @@ export default function GamePage() {
           animate={{ opacity: 1, scale: 1 }}
           className="fixed inset-0 z-200 flex items-center justify-center p-4"
         >
-          <div className="absolute inset-0 bg-black/70" />
+          <motion.div
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+            className="absolute inset-0 bg-black/50"
+          />
           <motion.div
             initial={{ y: 50 }}
             animate={{ y: 0 }}
