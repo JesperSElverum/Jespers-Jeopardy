@@ -1,0 +1,48 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --color-nor-red: #BA0C2F;
+  --color-nor-red-light: #E8365A;
+  --color-nor-blue: #00205B;
+  --color-nor-blue-light: #1A3D7C;
+  --color-nor-white: #FFFFFF;
+  --color-nor-gold: #D4AF37;
+  --color-nor-gold-light: #F0D060;
+}
+
+@layer base {
+  body {
+    @apply min-h-screen bg-gradient-to-br from-nor-blue via-nor-blue-light to-nor-red text-nor-white font-sans;
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg;
+  }
+
+  .glass-blue {
+    @apply bg-nor-blue/30 backdrop-blur-xl border border-nor-blue-light/40 shadow-lg shadow-nor-blue/20;
+  }
+
+  .glass-red {
+    @apply bg-nor-red/20 backdrop-blur-xl border border-nor-red-light/30 shadow-lg shadow-nor-red/20;
+  }
+
+  .glass-gold {
+    @apply bg-nor-gold/15 backdrop-blur-xl border border-nor-gold/30 shadow-lg shadow-nor-gold/20;
+  }
+
+  .glow-red {
+    box-shadow: 0 0 20px rgba(186, 12, 47, 0.4), 0 0 60px rgba(186, 12, 47, 0.1);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(0, 32, 91, 0.5), 0 0 60px rgba(0, 32, 91, 0.2);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), 0 0 60px rgba(212, 175, 55, 0.1);
+  }
+}
