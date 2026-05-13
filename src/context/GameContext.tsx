@@ -7,6 +7,7 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 import type { GameData, GameState } from "../types";
+import { useLocation } from "react-router-dom";
 import {
   loadGameData,
   loadGameState,
@@ -28,8 +29,14 @@ interface GameContextType {
 const GameContext = createContext<GameContextType | null>(null);
 
 export function GameProvider({ children }: { children: ReactNode }) {
+  const location = useLocation();
   const [gameData, setGameData] = useState<GameData>(loadGameData);
   const [state, setState] = useState<GameState>(loadGameState);
+
+  // Reload game data from localStorage on every route change
+  useEffect(() => {
+    setGameData(loadGameData());
+  }, [location.pathname]);
 
   const totalQuestions = gameData.categories.reduce(
     (acc, cat) => acc + cat.questions.length,

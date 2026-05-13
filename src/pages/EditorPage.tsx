@@ -171,7 +171,7 @@ export default function EditorPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed top-4 left-1/2 -translate-x-1/2 z-[300] glass-gold rounded-xl px-6 py-3 font-bold"
+            className="fixed top-4 left-1/2 -translate-x-1/2 z-300 glass-gold rounded-xl px-6 py-3 font-bold"
           >
             ✅ Lagret!
           </motion.div>

@@ -1,9 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { useGame } from "../context/GameContext";
 import { motion } from "framer-motion";
 
 export default function Header() {
   const { gameData, resetGame } = useGame();
-
+  const navigate = useNavigate();
   return (
     <motion.header
       initial={{ y: -60, opacity: 0 }}
@@ -14,6 +15,17 @@ export default function Header() {
         {gameData.title}
       </h1>
       <div className="flex gap-2">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => {
+            resetGame();
+            navigate("/");
+          }}
+          className="glass-red px-4 py-2 rounded-xl text-sm font-medium cursor-pointer hover:glow-red transition-shadow"
+        >
+          Avslutt
+        </motion.button>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

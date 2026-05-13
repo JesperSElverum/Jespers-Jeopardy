@@ -32,14 +32,14 @@ export default function QuestionCard() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 z-100 flex items-center justify-center p-4"
         >
           {/* Backdrop */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="absolute inset-0 bg-black/50"
             onClick={handleClose}
           />
 
@@ -49,11 +49,11 @@ export default function QuestionCard() {
             animate={{ scale: 1, rotateY: 0 }}
             exit={{ scale: 0.5, rotateY: 90, opacity: 0 }}
             transition={{ type: "spring", damping: 20, stiffness: 200 }}
-            className="relative glass rounded-3xl p-8 md:p-12 max-w-2xl w-full text-center"
+            className="relative glass rounded-3xl p-10 md:p-16 max-w-3xl w-full text-center"
             style={{ perspective: "1000px" }}
           >
             {/* Points badge */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 glass-gold rounded-full px-5 py-1 text-sm font-bold">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 glass-gold rounded-full px-6 py-2 text-base font-bold">
               {activeQuestion.points} poeng
             </div>
 
@@ -62,7 +62,7 @@ export default function QuestionCard() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-2xl md:text-3xl font-bold mt-4 mb-8"
+              className="text-3xl md:text-4xl font-bold mt-6 mb-10"
             >
               {activeQuestion.question}
             </motion.p>
@@ -88,16 +88,7 @@ export default function QuestionCard() {
 
             {/* Actions */}
             <div className="flex gap-4 justify-center">
-              {!showAnswer ? (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setShowAnswer(true)}
-                  className="glass-blue px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-blue transition-shadow"
-                >
-                  Vis Svar
-                </motion.button>
-              ) : (
+              {showAnswer ? (
                 <motion.button
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -107,6 +98,15 @@ export default function QuestionCard() {
                   className="glass-red px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-red transition-shadow"
                 >
                   Tilbake
+                </motion.button>
+              ) : (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowAnswer(true)}
+                  className="glass-blue px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-blue transition-shadow"
+                >
+                  Vis Svar
                 </motion.button>
               )}
             </div>

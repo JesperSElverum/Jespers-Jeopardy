@@ -19,19 +19,19 @@
 
 @layer components {
   .glass {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg;
+    @apply bg-white/10 border border-white/20 shadow-lg;
   }
 
   .glass-blue {
-    @apply bg-nor-blue/30 backdrop-blur-xl border border-nor-blue-light/40 shadow-lg shadow-nor-blue/20;
+    @apply bg-nor-blue/30 border border-nor-blue-light/40 shadow-lg shadow-nor-blue/20;
   }
 
   .glass-red {
-    @apply bg-nor-red/20 backdrop-blur-xl border border-nor-red-light/30 shadow-lg shadow-nor-red/20;
+    @apply bg-nor-red/20 border border-nor-red-light/30 shadow-lg shadow-nor-red/20;
   }
 
   .glass-gold {
-    @apply bg-nor-gold/15 backdrop-blur-xl border border-nor-gold/30 shadow-lg shadow-nor-gold/20;
+    @apply bg-nor-gold/15 border border-nor-gold/30 shadow-lg shadow-nor-gold/20;
   }
 
   .glow-red {

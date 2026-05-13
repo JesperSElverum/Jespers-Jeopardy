@@ -86,7 +86,7 @@ export default function StartPage() {
           }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate("/game")}
-          className="glass-gold px-10 py-4 rounded-2xl text-xl font-bold cursor-pointer transition-shadow"
+          className="glass-gold px-10 py-4 rounded-2xl text-xl font-bold cursor-pointer hover:scale-105 "
         >
           Start Spill
         </motion.button>
