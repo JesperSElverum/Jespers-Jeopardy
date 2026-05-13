@@ -87,7 +87,7 @@ export default function QuestionCard() {
             style={{ perspective: "1000px" }}
           >
             {/* Points badge */}
-            <div className="absolute -top-6 left-1/2 -translate-x-1/2 glass-gold rounded-full px-8 py-3 text-xl font-bold whitespace-nowrap">
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-nor-gold/60 border border-nor-gold/80 shadow-lg rounded-full px-8 py-3 text-xl font-bold whitespace-nowrap">
               {activeQuestion.points} poeng
             </div>
 
@@ -111,7 +111,7 @@ export default function QuestionCard() {
                   transition={revealAnim.transition}
                   className="mb-8"
                 >
-                  <div className="glass-gold rounded-2xl p-6">
+                  <div className="bg-nor-gold/45 border border-nor-gold/70 shadow-lg rounded-2xl p-6">
                     <p className="text-xl md:text-2xl font-bold text-nor-gold-light">
                       {activeQuestion.answer}
                     </p>
@@ -129,7 +129,7 @@ export default function QuestionCard() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleClose}
-                  className="glass-red px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-red transition-shadow"
+                  className="bg-nor-red/60 border border-nor-red-light/70 shadow-lg px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-red transition-shadow"
                 >
                   Tilbake
                 </motion.button>
@@ -145,7 +145,7 @@ export default function QuestionCard() {
                     );
                     setShowAnswer(true);
                   }}
-                  className="glass-blue px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-blue transition-shadow"
+                  className="bg-nor-blue/65 border border-nor-blue-light/70 shadow-lg px-8 py-3 rounded-xl font-bold text-lg cursor-pointer hover:glow-blue transition-shadow"
                 >
                   Vis Svar
                 </motion.button>
